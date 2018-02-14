@@ -22,7 +22,6 @@ int main(int argc, char *argv[]){
 	//char *image_id[20];
 	//char *score[20];
 	//char *top[100]
-	int i = 0;
     FILE *out;
     FILE *ann;
     FILE *top;
@@ -40,30 +39,34 @@ int main(int argc, char *argv[]){
         {
         	
         	strcat(chaine_top,concept);
-            strcat(chaine_top," Q0 ");
-            int c = 0;
+          strcat(chaine_top," Q0 ");
+          int c = 0;
 	        while(chaine_ann[c] != ' '){
-	         	 // BUG!!!
-	            c++;
+            c++;
 	        }
 	        chaine_ann[c]='\0';
-	        printf("    %s     ",chaine_ann);
+	        //printf("\n    %s     ",chaine_ann);
 
 	        strcat(chaine_top,chaine_ann);
 	        strcat(chaine_top," 0 ");
 
 	        c = 0;
-           	while(chaine_out[c] != ' '){
-            	c++;
-          	}
+         	while(chaine_out[c] != ' '){
           	c++;
-          	while(chaine_out[c] != ' '){
-          		strcat(chaine_top,chaine_out[c]);
-            	c++;
-          	}
+        	}
+        	c++;
+          char str_out[TAILLE_MAX];
+          int i = 0;
+        	while(chaine_out[c] != ' '){
+            str_out[i] = chaine_out[c];
+          	c++;
+            i++;
+        	}
+          str_out[i]='\0';
+		      strcat(chaine_top,str_out);
 
-          	strcat(chaine_top," R");
-          	fputs(chaine_top, top);
+        	strcat(chaine_top," R\n");
+        	fputs(chaine_top, top);
         }
 
         fclose(out);
@@ -72,5 +75,5 @@ int main(int argc, char *argv[]){
     }else{
         printf("erreur d'ouverture un des fichiers \n");
     }
-    exit(0);
+    return 0;
 }
