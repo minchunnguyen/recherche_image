@@ -1,11 +1,7 @@
 #include <stdio.h>
-// #include <malloc.h>
-// #include <stdlib.h>
+#include <stdlib.h>
 #include <string.h>
-// #include <strings.h>
-//#include <dirent.h>
-//#include "rdjpeg.h"
-//#include "svm.h"
+
 #define TAILLE_MAX 100
 #define NB_IMAGE 7000
 
@@ -26,7 +22,7 @@ int main(int argc, char *argv[]){
     FILE *out;
     FILE *ann;
     FILE *top;
-    ann = fopen("./annotation/aeroplane_val.ann","r");
+    ann = fopen("./annotation_val/aeroplane_val.ann","r");
 
     out = fopen("./out/color_aeroplane.out","r");
 

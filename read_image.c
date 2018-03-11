@@ -40,52 +40,52 @@ long* histogramme(CIMAGE *cim, int rBins, int gBins, int bBins){
 
 int main(int argc, char *argv[])
 {
-  int i,j,n,nx,ny,nb;
-  CIMAGE cim;
-  /*------------------------------------------------*/
-  /* lecture d'une image requête                    */
-  /*------------------------------------------------*/
-  read_cimage(argv[1],&cim);
-  /*------------------------------------------------*/
-  /* affichage des valeurs pour le premier bloc 8x8 */
-  /* comme exemple de traitement                    */
-  /*------------------------------------------------*/
-  printf("Largeur de l'image : %d\n",cim.nx);
-  printf("Heuteur de l'image : %d\n",cim.ny);
-  printf("Plan rouge du premier bloc 8x8 :\n");
-  for (j = 0; j < 8; j++) {       /* ligne par ligne */
-    printf("  ");
-    for (i = 0; i < 8; i++) {   /* pixel par pixel */
-      printf("%4d",cim.r[i][j]);
-    }
-    printf("\n");
-  }
-  printf("Plan vert du premier bloc 8x8 :\n");
-  for (j = 0; j < 8; j++) {       /* ligne par ligne */
-    printf("  ");
-    for (i = 0; i < 8; i++) {   /* pixel par pixel */
-      printf("%4d",cim.g[i][j]);
-    }
-    printf("\n");
-  }
-  printf("Plan bleu du premier bloc 8x8 :\n");
-  for (j = 0; j < 8; j++) {       /* ligne par ligne */
-    printf("  ");
-    for (i = 0; i < 8; i++) {   /* pixel par pixel */
-      printf("%4d",cim.b[i][j]);
-    }
-    printf("\n");
-  }
-  /*------------------------------------------------*/
-  printf("historgramme\n");
-  long* histo = histogramme(&cim, RBINS, GBINS, BBINS);
+  // int i,j,n,nx,ny,nb;
+  // CIMAGE cim;
+  // /*------------------------------------------------*/
+  // /* lecture d'une image requête                    */
+  // /*------------------------------------------------*/
+  // read_cimage(argv[1],&cim);
+  // /*------------------------------------------------*/
+  // /* affichage des valeurs pour le premier bloc 8x8 */
+  // /* comme exemple de traitement                    */
+  // /*------------------------------------------------*/
+  // printf("Largeur de l'image : %d\n",cim.nx);
+  // printf("Heuteur de l'image : %d\n",cim.ny);
+  // printf("Plan rouge du premier bloc 8x8 :\n");
+  // for (j = 0; j < 8; j++) {       /* ligne par ligne */
+  //   printf("  ");
+  //   for (i = 0; i < 8; i++) {   /* pixel par pixel */
+  //     printf("%4d",cim.r[i][j]);
+  //   }
+  //   printf("\n");
+  // }
+  // printf("Plan vert du premier bloc 8x8 :\n");
+  // for (j = 0; j < 8; j++) {       /* ligne par ligne */
+  //   printf("  ");
+  //   for (i = 0; i < 8; i++) {   /* pixel par pixel */
+  //     printf("%4d",cim.g[i][j]);
+  //   }
+  //   printf("\n");
+  // }
+  // printf("Plan bleu du premier bloc 8x8 :\n");
+  // for (j = 0; j < 8; j++) {       /* ligne par ligne */
+  //   printf("  ");
+  //   for (i = 0; i < 8; i++) {   /* pixel par pixel */
+  //     printf("%4d",cim.b[i][j]);
+  //   }
+  //   printf("\n");
+  // }
+  // /*------------------------------------------------*/
+  // printf("historgramme\n");
+  // long* histo = histogramme(&cim, RBINS, GBINS, BBINS);
 
-  for(int c = 0; c < RBINS*GBINS*BBINS; c++){
-  	printf("%ld   ", histo[c]);
-  }
-  printf("\n");
+  // for(int c = 0; c < RBINS*GBINS*BBINS; c++){
+  // 	printf("%ld   ", histo[c]);
+  // }
+  // printf("\n");
 
-  creation_svm_concept();
+  creation_svm_concept(argv[1]);
 
   exit(0);
 }
