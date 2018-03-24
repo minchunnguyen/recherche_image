@@ -5,29 +5,63 @@
 #define TAILLE_MAX 100
 #define NB_IMAGE 7000
 
-
 int main(int argc, char *argv[]){
 
 	// fichier top : <concept> Q0   <image>   0  <score>   R
 	// 				 aeroplane  Q0 2008_000008 0 0.00393715 R
 	// 				 nom_fichier   /annotation       /out
-     printf("----------------------------------------------------------------------------------------------");
 
-	char *concept = "aeroplane";
-	char chaine_out[TAILLE_MAX];
-	char chaine_ann[TAILLE_MAX];
-	//char *image_id[20];
-	//char *score[20];
-	//char *top[100]
+    char concept[20] = "";
+    concept[0]='\0';
+
+    char chaine_out[TAILLE_MAX];
+    char chaine_ann[TAILLE_MAX];
+
     FILE *out;
     FILE *ann;
     FILE *top;
-    ann = fopen("./annotation_val/aeroplane_val.ann","r");
+  
 
-    out = fopen("./out/color_aeroplane.out","r");
+    char nom_fichier[20];
+    nom_fichier[0]='\0';
 
-    top = fopen("./top/color_aeroplane.top","w+");
+    int j = 2;
 
+    while(argv[1][j] != '/'){
+        j++;
+    }
+    j++;
+
+    int k =0;
+    while(argv[1][j] != '.'){
+        nom_fichier[k] = argv[1][j];
+        k++;
+        j++;
+    }
+    nom_fichier[k] = '\0';
+    //---------------------------------------Chemin du fichier .top--------------------------------------------------------
+    char chemin_fichier_top[50]; 
+    chemin_fichier_top[0] = '\0';
+    strcat(chemin_fichier_top, "./top/");
+    strcat(chemin_fichier_top,nom_fichier);
+    strcat(chemin_fichier_top,".top");
+    printf("chemin fichier top %s\n",chemin_fichier_top);
+
+    //----------------------------------------Chemin du fichier .out---------------------------------------------------------
+    char chemin_fichier_out[50]; 
+    chemin_fichier_out[0] = '\0';
+    strcat(chemin_fichier_out, "./out/color_");
+    strcat(chemin_fichier_out,nom_fichier);
+    strcat(chemin_fichier_out,".out");
+
+    //----------------------------------------Ouverture des fichiers----------------------------------------------------------
+    ann = fopen(argv[1],"r");
+
+    out = fopen(chemin_fichier_out,"r");
+
+    top = fopen(chemin_fichier_top,"w+");
+
+    strcpy(concept, nom_fichier); // définir la valeur de concept 
 
     if (ann != NULL && out != NULL && top != NULL)
     {
@@ -57,7 +91,6 @@ int main(int argc, char *argv[]){
           c++;
         }
         chaine_ann[c]='\0';
-        //printf("\n    %s     ",chaine_ann);
 
         strcat(chaine_top,chaine_ann);
         strcat(chaine_top," 0 ");
@@ -105,8 +138,6 @@ int main(int argc, char *argv[]){
     }else{
         printf("erreur d'ouverture un des fichiers \n");
     }
-        printf("FIN");
-
     return 0;
 }
 
