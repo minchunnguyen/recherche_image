@@ -1,6 +1,6 @@
 #!/bin/bash
 echo '----------------Créer les fichiers.svm---------------------------'
-cc read_image.c svm.c -o read_image
+cc  rdjpeg.c read_image.c svm.c -o read_image
 
 for fichier in `ls annotation_train/`
 do
