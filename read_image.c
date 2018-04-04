@@ -49,19 +49,7 @@ double*** histogrammeRGB(CIMAGE cim){
     }
   }
   
-  /*for(i=0;i<RBINS;i++){
-    for(j=0;j<GBINS;j++){
-      for(k=0;k<BBINS;k++){
-        printf("%f ",histo[k][j][i]);
-      }
-      printf("\n");
-    }
-    printf("\n");
-  }*/
-  
   return histo;
-
-
 }
 
 
@@ -78,7 +66,6 @@ if(f_entree !=NULL){
       ch++;
     }
     url_img[ch] = '\0';
-    //printf("%s\n",url_img);
 
     read_cimage(url_img,&cim);
     double*** histo = histogrammeRGB(cim);
@@ -88,7 +75,6 @@ if(f_entree !=NULL){
       for(j=0;j<GBINS;j++){
         for(k=0;k<BBINS;k++){
           if (histo[k][j][i]){
-            //printf("%d:%f ",count,histo[k][j][i]);
             fprintf(f_res,"%d:%f ",count,histo[k][j][i]);
           }
           count++;
