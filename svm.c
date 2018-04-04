@@ -10,6 +10,12 @@
 #define TAILLE_ANN 20
 
 
+int main(int argc, char *argv[])
+{
+    creation_svm_concept(argv[1]);
+    exit(0);
+}
+
 void creation_svm_concept(char * f1){
     char* histos[5*TAILLE_MAX];
     char* svm_concept[5*TAILLE_MAX];

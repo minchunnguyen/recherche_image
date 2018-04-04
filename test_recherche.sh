@@ -1,10 +1,15 @@
 #!/bin/bash
+echo '----------------Créer les fichiers svm neutres---------------------------'
+cc  rdjpeg.c read_image.c  -o read_image
+cc  rdjpeg.c svm.c -o script_svm
+
+./read_image
+
 echo '----------------Créer les fichiers.svm---------------------------'
-cc  rdjpeg.c read_image.c svm.c -o read_image
 
 for fichier in `ls annotation_train/`
 do
-	./read_image ./annotation_train/$fichier
+	./script_svm ./annotation_train/$fichier
 done
 echo '--------------------------------------------------------------------'
 echo -e
