@@ -1,0 +1,28 @@
+DIDES Julien
+NGUYEN Minh Trung
+M2PGI
+
+Projet Multimedia 
+
+Télécharger  deux logiciels trec_eval et libsvm
+Décompresser les deux archives à la racine du projet
+
+Nous avons utilisé la version 9.0 de trec eval et libsvm-3.22( on peut trouver sur le site https://ginf53c4.imag.fr/doku.php)
+
+
+Il faut télécharger les fichiers d'annotation de train et de val depuis http://mrim.imag.fr/GINF53C4/PROJET/train/ann/ et http://mrim.imag.fr/GINF53C4/PROJET/val/ann/ puis les mettre dans deux répertoires correspondantes annotation_train et annotation_val
+
+Il faut télécharger les données de urls de train et de val depuis http://mrim.imag.fr/GINF53C4/PROJET/train/urls.txt et http://mrim.imag.fr/GINF53C4/PROJET/val/urls.txt puis les mettre dans deux fichiers
+correspondants urls_train et urls_val et puis mettre les deux fichiers dans un répertoire nommé urls
+
+
+Il faut télécharger les fichiers.rel de val depuis http://mrim.imag.fr/GINF53C4/PROJET/val/rel/
+et puis les mettre dans un répertoire nommé rel_val
+
+
+lancer le fichier shell test_recherche.sh
+
+Projet Deep Learning
+Exécuter le fichier cifar10_tutorial.py.
+
+

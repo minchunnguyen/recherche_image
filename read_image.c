@@ -9,111 +9,107 @@
 #define RBINS 4
 #define GBINS 4
 #define BBINS 4
-#define TAILLE_MAX_URL 20000
+#define TAILLE_URL 500
 
-double*** histogrammeRGB(CIMAGE cim){
-
-  double*** histo = (double ***) malloc(RBINS*sizeof(double**));
+// ---------------------Fonction permet de calculer l'histogramme de couleur-------------------------
+double*** histogramme_couleur(CIMAGE cim){
+  // déclarer un histogramme de trois dimensions
+  double*** histogramme = (double ***) malloc(RBINS*sizeof(double**));
   int i,j,k;
+  int r,g,b;
   for (i=0;i<RBINS;i++){
-    histo[i]=(double **)malloc(GBINS*sizeof(double*));
+    histogramme[i]=(double **)malloc(GBINS*sizeof(double*));
     for(j=0;j<GBINS;j++){
-      histo[i][j] = (double *)malloc(BBINS*sizeof(double));
+      histogramme[i][j] = (double *)malloc(BBINS*sizeof(double));
     }
   }
   
   for(i=0;i<RBINS;i++){
     for(j=0;j<GBINS;j++){
       for(k=0;k<BBINS;k++){
-        histo[i][j][k]=0.0;
+        histogramme[i][j][k]=0.0;
       }
     }
   }
 
-        
-  int r,g,b;
   for(i=0;i<cim.nx;i++){
     for(j=0;j<cim.ny;j++){
       r=(cim.r[i][j]*RBINS)/256;
       g=(cim.g[i][j]*GBINS)/256;
       b=(cim.b[i][j]*BBINS)/256;
-      histo[r][g][b]++;
+      histogramme[r][g][b]++;
     }
   }
   
   for(i=0;i<RBINS;i++){
     for(j=0;j<GBINS;j++){
       for(k=0;k<BBINS;k++){
-        histo[i][j][k]=histo[i][j][k]/(cim.nx*cim.ny);
+        histogramme[i][j][k]=histogramme[i][j][k]/(cim.nx*cim.ny);
       }
     }
   }
-  
-  return histo;
+  return histogramme;
 }
 
+// --------------------Fonction permet de créer les fichiers neutre SVM ------------------------
+void fichiers_svm_neutre( char * type){
+  int i,j,k;
+  CIMAGE cim;
+  FILE * entree = NULL;
+  FILE *sortie  = NULL;
 
-void creation_fichier_neutre(FILE *f_entree, FILE *f_res){
-
-int i,j,k;
-CIMAGE cim;
-if(f_entree !=NULL){
-  char* url_img = malloc(TAILLE_MAX_URL*sizeof(char));
+  if(strcmp(type, "train") == 0){
+      entree = fopen("urls/urls_train","r");
+      remove("resultat_train_a.svm");
+      sortie = fopen("svm/resultat_train.svm","w");  
+  }
+  if(strcmp(type, "val") == 0){
+      entree = fopen("urls/urls_val","r");
+      remove("resultat_val_a.svm");
+      sortie = fopen("svm/resultat_val.svm","w");  
+  }
+  if(entree !=NULL){
+  char* url_img = malloc(TAILLE_URL*sizeof(char));
   int nb_img =0;
-  while(fgets(url_img,TAILLE_MAX_URL,f_entree) != NULL){
+  while(fgets(url_img,TAILLE_URL,entree) != NULL){
     int ch =0;
-    while(url_img[ch] != '\n' && ch < TAILLE_MAX_URL){
+    while(url_img[ch] != '\n' && ch < TAILLE_URL){
       ch++;
     }
     url_img[ch] = '\0';
 
     read_cimage(url_img,&cim);
-    double*** histo = histogrammeRGB(cim);
+    double*** histogramme = histogramme_couleur(cim);
     int count =1;
-    fprintf(f_res,"0 ");
+    fprintf(sortie,"0 "); //mettre le 0 tout au début
     for(i=0;i<RBINS;i++){
       for(j=0;j<GBINS;j++){
         for(k=0;k<BBINS;k++){
-          if (histo[k][j][i]){
-            fprintf(f_res,"%d:%f ",count,histo[k][j][i]);
+          if (histogramme[k][j][i]){
+            fprintf(sortie,"%d:%f ",count,histogramme[k][j][i]);
           }
           count++;
         }
       }
     }
-    fprintf(f_res,"\n");
+    fprintf(sortie,"\n");
     nb_img++;
     free_cimage(url_img,&cim);
   }
+
+  fclose(entree);
+  fclose(sortie);
 }
 
 
 }
-
 
 
 int main(int argc, char *argv[])
 {
-  int i,j,k,n,nx,ny,nb;
   CIMAGE cim;
-  FILE* f_url_train = NULL;
-  FILE* f_res_train = NULL;
-
-  FILE* f_url_val = NULL;
-  FILE* f_res_val = NULL;   
-  
-  // CREATION FICHIER SVM NEUTRE
-  f_url_train = fopen("urls/urls_train","r");
-  remove("resultat_train_a.svm");
-  f_res_train = fopen("svm/resultat_train.svm","w");  
-
-  f_url_val = fopen("urls/urls_val","r");
-  remove("resultat_val_a.svm");
-  f_res_val = fopen("svm/resultat_val.svm","w");  
-  
-  creation_fichier_neutre(f_url_train,f_res_train);
-  creation_fichier_neutre(f_url_val,f_res_val);
-
+  fichiers_svm_neutre("train");
+  fichiers_svm_neutre("val");
 
   exit(0);
 }

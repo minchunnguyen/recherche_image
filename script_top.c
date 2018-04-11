@@ -140,8 +140,3 @@ int main(int argc, char *argv[]){
     }
     return 0;
 }
-
-
-// trec_eval.9.0/trec_eval -q -m official rel_val/$concept.rel top/$concept.top > res_trec_eval/$concept.txt
-
-// trec_eval.9.0/trec_eval -q -m official rel_val/aeroplane.rel top/aeroplane.top > res_trec_eval/aeroplane.txt
