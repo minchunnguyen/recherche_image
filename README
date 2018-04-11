@@ -26,3 +26,17 @@ Projet Deep Learning
 Exécuter le fichier cifar10_tutorial.py.
 
 
+------------------------------------------------------------------DÉPÔT GIT -------------------------------------------------------------------------
+
+Si jamais vous avez un problème de lancement de programme,  vous pouvez faire un git clone depuis notre dépôt git ( https://github.com/minchunnguyen/recherche_image.git )
+qui contient toutes les codes sources ainsi les sources de données, vous allez ensuite supprimer les 6 premières  dans le fichier script shell test_recherche.sh qui permettent de créer automatiquement les répertoires :
+
+mkdir svm
+mkdir top
+mkdir out
+mkdir model
+mkdir resul
+mkdir res_trec_eval
+
+( le fichier script shell se trouve à la racine du répertoire de projet)
+et il ne vous reste qu'à lancer ./test_recherche.sh
